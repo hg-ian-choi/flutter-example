@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,9 +12,9 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           centerTitle: false,
           elevation: 10,
-          title: const Text('Hello, Flutter!'),
+          title: Text('Hello, Flutter!'),
         ),
-        body: const Center(
+        body: Center(
           child: Text('Hello, World!'),
         ),
       ),
