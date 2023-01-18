@@ -1,38 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:nmc/widgets/homt_screen.dart';
+import 'package:nmc/screens/home_screen.dart';
+import 'package:nmc/services/api_service.dart';
 
-void main(List<String> args) {
-  runApp(const App());
+void main() {
+  ApiService().getTodaysToons();
+  runApp(const MyApp());
 }
 
-class App extends StatelessWidget {
-  const App({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: Colors.white,
-          onPrimary: Colors.white,
-          secondary: Colors.white,
-          onSecondary: Colors.white,
-          error: Colors.red,
-          onError: Colors.red,
-          background: Color(0xFFE7626C),
-          onBackground: Color(0xFFE7626C),
-          surface: Colors.white,
-          onSurface: Colors.white,
-        ),
-        textTheme: const TextTheme(
-          displayLarge: TextStyle(
-            color: Color(0xFF232B55),
-          ),
-        ),
-        cardColor: const Color(0xFFF4EDDB),
-      ),
-      home: const HomeScreen(),
+    return const MaterialApp(
+      home: HomeScreen(),
     );
   }
 }
