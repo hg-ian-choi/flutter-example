@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:nmc/models/webtoon_model.dart';
 
 class ApiService {
-  final String baseUrl = 'http://localhost:8088/flutter';
-  final String method = 'get';
+  static const String baseUrl = 'http://localhost:8088/flutter';
+  static const String method = 'get';
 
-  Future<List<WebtoonModel>> getTodaysToons() async {
+  static Future<List<WebtoonModel>> getTodaysToons() async {
     List<WebtoonModel> webtoonInstances = [];
 
     final url = Uri.parse('$baseUrl/$method');
