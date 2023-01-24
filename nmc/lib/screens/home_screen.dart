@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Column(
-              children: [
+              children: <Widget>[
                 const SizedBox(
                   height: 50,
                 ),
