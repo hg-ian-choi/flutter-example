@@ -3,6 +3,7 @@ import 'package:nmc/models/webtoon_detail_model.dart';
 import 'package:nmc/models/webtoon_episode_model.dart';
 import 'package:nmc/services/api_service.dart';
 import 'package:nmc/widgets/episode.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DetailScreen extends StatefulWidget {
   final String id, title, thumbnail;
@@ -21,12 +22,44 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   late Future<WebtoonDetailModel> webtoon;
   late Future<List<WebtoonEpisodeModel>> episodes;
+  late SharedPreferences prefs;
+  bool isLiked = false;
+
+  Future initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    final likedWebtoons = prefs.getStringList('likedWebtoons');
+    if (likedWebtoons != null) {
+      if (likedWebtoons.contains(widget.id)) {
+        setState(() {
+          isLiked = true;
+        });
+      }
+    } else {
+      prefs.setStringList('likedWebtoons', []);
+    }
+  }
+
+  onLikedTap() async {
+    final likedWebtoons = prefs.getStringList('likedWebtoons');
+    if (likedWebtoons != null) {
+      if (isLiked) {
+        likedWebtoons.remove(widget.id);
+      } else {
+        likedWebtoons.add(widget.id);
+      }
+      await prefs.setStringList('likedWebtoons', likedWebtoons);
+      setState(() {
+        isLiked = !isLiked;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     webtoon = ApiService.getWebtoonById(widget.id);
     episodes = ApiService.getWebtoonEpisodeById(widget.id);
+    initPrefs();
   }
 
   @override
@@ -43,6 +76,16 @@ class _DetailScreenState extends State<DetailScreen> {
             fontSize: 24,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              onLikedTap();
+            },
+            icon: Icon(isLiked
+                ? Icons.favorite_outlined
+                : Icons.favorite_outline_outlined),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
