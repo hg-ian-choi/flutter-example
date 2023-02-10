@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:openai_test/components/login.dart';
+import 'package:openai_test/services/google_service.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
+
+  final _googleService = GoogleService();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,8 @@ class Home extends StatelessWidget {
                     TextButton(
                       child: const Text("로그아웃"),
                       onPressed: () {
-                        FirebaseAuth.instance.signOut();
+                        // FirebaseAuth.instance.signOut();
+                        _googleService.signOutWithGoogle();
                       },
                     ),
                   ],

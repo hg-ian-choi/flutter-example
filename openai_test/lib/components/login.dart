@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:openai_test/services/google_service.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
+
+  final _googleService = GoogleService();
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -35,7 +38,8 @@ class Login extends StatelessWidget {
           Expanded(
             flex: 1,
             child: TextButton(
-              onPressed: signInWithGoogle,
+              // onPressed: signInWithGoogle,
+              onPressed: _googleService.signInWithGoogle,
               child: const Text('Google Login'),
             ),
           ),
