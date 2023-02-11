@@ -27,24 +27,19 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign In'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: TextButton(
-              // onPressed: signInWithGoogle,
-              onPressed: _googleService.signInWithGoogle,
-              child: const Text('Google Login'),
-            ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          flex: 1,
+          child: TextButton(
+            // onPressed: signInWithGoogle,
+            onPressed: _googleService.signInWithGoogle,
+            child: const Text('Google Login'),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
