@@ -3,6 +3,7 @@ import 'package:openai_test/components/bubble_modal.dart';
 import 'package:openai_test/services/google_service.dart';
 import 'dart:math' as math;
 
+const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 
 class Chat extends StatefulWidget {
   const Chat({Key? key, required this.imagePath}) : super(key: key);
@@ -18,6 +19,7 @@ class _ChatState extends State<Chat> {
   bool showSignOut = false;
 
   final _controler = TextEditingController();
+  String dropdownValue = list.first;
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +132,8 @@ class _ChatState extends State<Chat> {
               //         : const SizedBox(height: 0),
               //   ],
               // ),
+              Text('Hello, World!!!!!'),
+              SizedBox(height: 20),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -179,6 +183,32 @@ class _ChatState extends State<Chat> {
                     icon: Image.network(
                       widget.imagePath,
                     ),
+                  ),
+                  SizedBox(height: 20),
+                  DropdownButton<String>(
+                    value: dropdownValue,
+                    icon: const Icon(
+                      Icons.arrow_downward,
+                      color: Colors.green,
+                    ),
+                    elevation: 16,
+                    style: const TextStyle(color: Colors.red),
+                    underline: Container(
+                      height: 2,
+                      color: Colors.blue,
+                    ),
+                    onChanged: (String? value) {
+                      // This is called when the user selects an item.
+                      setState(() {
+                        dropdownValue = value!;
+                      });
+                    },
+                    items: list.map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                 ],
               ),
