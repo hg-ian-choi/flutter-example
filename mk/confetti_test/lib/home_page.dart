@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         ConfettiWidget(
           confettiController: _confettiController,
           blastDirection: pi / 2,
-          colors: [
+          colors: const [
             Colors.deepPurple,
             Colors.yellow,
           ],
