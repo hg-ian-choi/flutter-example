@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getx_test/practice1/view/shopping_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,13 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: Text('Hello, World!'),
-          ),
-        ),
-      ),
+      home: ShoppingPage(),
     );
   }
 }
