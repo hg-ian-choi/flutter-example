@@ -18,46 +18,53 @@ class ShoppingPage extends StatelessWidget {
             Expanded(
               child: GetX<ShoppingController>(
                 builder: (ShoppingController shoppingController_) {
-                  return ListView.builder(
-                    itemCount: shoppingController_.products.length,
-                    itemBuilder: (BuildContext context_, int index_) {
-                      return Card(
-                        margin: const EdgeInsets.all(12),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        shoppingController_.products[index_].productName,
-                                        style: const TextStyle(fontSize: 24),
-                                      ),
-                                      Text(shoppingController_.products[index_].productDescription),
-                                    ],
-                                  ),
-                                  Text(
-                                    '\$${shoppingController_.products[index_].price}',
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                ],
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  cartController.addToItem(shoppingController_.products[index_]);
-                                },
-                                child: const Text('Add to cart'),
-                              ),
-                            ],
+                  return RawScrollbar(
+                    thumbColor: Colors.white54,
+                    scrollbarOrientation: ScrollbarOrientation.right,
+                    thickness: 10,
+                    thumbVisibility: true,
+                    child: ListView.builder(
+                      itemCount: shoppingController_.products.length,
+                      itemBuilder: (BuildContext context_, int index_) {
+                        return Card(
+                          margin: const EdgeInsets.all(12),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          shoppingController_.products[index_].productName,
+                                          style: const TextStyle(fontSize: 24),
+                                        ),
+                                        Text(shoppingController_
+                                            .products[index_].productDescription),
+                                      ],
+                                    ),
+                                    Text(
+                                      '\$${shoppingController_.products[index_].price}',
+                                      style: const TextStyle(fontSize: 24),
+                                    ),
+                                  ],
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    cartController.addToItem(shoppingController_.products[index_]);
+                                  },
+                                  child: const Text('Add to cart'),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 },
               ),
