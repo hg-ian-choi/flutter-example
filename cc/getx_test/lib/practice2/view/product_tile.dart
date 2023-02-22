@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_test/practice2/controller/controller.dart';
 import 'package:getx_test/practice2/model/product_model.dart';
 
 class ProductTile extends StatelessWidget {
@@ -19,8 +20,8 @@ class ProductTile extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 100,
-                  width: 100,
+                  height: 36,
+                  width: 36,
                   clipBehavior: Clip.antiAlias,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
@@ -30,18 +31,21 @@ class ProductTile extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                 ),
-                Obx(
-                  () => CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 15,
-                    child: IconButton(
-                      icon: product.like.value
-                          ? const Icon(Icons.favorite_rounded)
-                          : const Icon(Icons.favorite_border),
-                      onPressed: () {
-                        product.like.toggle();
-                      },
-                      iconSize: 18,
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Obx(
+                    () => CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 15,
+                      child: IconButton(
+                        icon: product.like.value
+                            ? const Icon(Icons.favorite_rounded)
+                            : const Icon(Icons.favorite_border),
+                        onPressed: () {
+                          product.like.toggle();
+                        },
+                        iconSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -93,7 +97,9 @@ class ProductTile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.find<Controller>().cartList.add(product);
+                  },
                   child: const Text(
                     'Add to cart',
                     style: TextStyle(color: Colors.white, fontSize: 16),

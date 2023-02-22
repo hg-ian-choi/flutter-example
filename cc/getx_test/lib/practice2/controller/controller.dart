@@ -6,18 +6,20 @@ class Controller extends GetxController {
   RxList<Product> productList = <Product>[].obs;
 
   RxBool isLoading = false.obs;
+  RxList<Product> cartList = <Product>[].obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    fetchData();
+    isLoading.value = true;
+    await fetchData();
+    isLoading.value = false;
   }
 
-  void fetchData() async {
+  Future<void> fetchData() async {
     final List<Product> products = await Services.fetchProducts();
     if (products.isNotEmpty) {
       productList.value = products;
     }
-
   }
 }

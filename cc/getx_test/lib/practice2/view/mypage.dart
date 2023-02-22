@@ -30,16 +30,36 @@ class MyPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 16, 0, 16),
         child: Obx(
-          () => GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-            ),
-            itemBuilder: (BuildContext context_, int index_) {
-              return ProductTile(product: controller.productList[index_]);
-            },
-            itemCount: controller.productList.length,
+          () => controller.isLoading.value
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (BuildContext context_, int index_) {
+                    return ProductTile(product: controller.productList[index_]);
+                  },
+                  itemCount: controller.productList.length,
+                ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          controller.cartList.value = [];
+        },
+        backgroundColor: Colors.deepOrange,
+        icon: const Icon(
+          Icons.shopping_cart_checkout,
+          size: 20,
+        ),
+        label: Obx(
+          () => Text(
+            'Item: ${controller.cartList.length}',
+            style: const TextStyle(color: Colors.white, fontSize: 16),
           ),
         ),
       ),
