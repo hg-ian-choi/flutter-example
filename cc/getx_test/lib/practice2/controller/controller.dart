@@ -5,6 +5,8 @@ import 'package:getx_test/practice2/model/product_model.dart';
 class Controller extends GetxController {
   RxList<Product> productList = <Product>[].obs;
 
+  RxBool isLoading = false.obs;
+
   @override
   void onInit() {
     super.onInit();

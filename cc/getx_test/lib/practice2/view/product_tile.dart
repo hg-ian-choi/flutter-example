@@ -13,75 +13,103 @@ class ProductTile extends StatelessWidget {
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Stack(
-            children: [
-              Container(
-                height: 64,
-                width: 100,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Image.network(
-                  product.imageLink,
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Obx(
-                () => CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 15,
-                  child: IconButton(
-                    icon: product.like.value
-                        ? const Icon(Icons.favorite_rounded)
-                        : const Icon(Icons.favorite_border),
-                    onPressed: () {
-                      product.like.toggle();
-                    },
-                    iconSize: 18,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 100,
+                  width: 100,
+                  clipBehavior: Clip.antiAlias,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Image.network(
+                    product.imageLink,
+                    fit: BoxFit.fill,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            product.name,
-            maxLines: 2,
-            style: const TextStyle(fontWeight: FontWeight.w400),
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 8),
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  product.rating == null ? '0.0' : product.rating.toString(),
-                  style: const TextStyle(color: Colors.white),
-                ),
-                const Icon(
-                  Icons.star,
-                  size: 16,
-                  color: Colors.white,
+                Obx(
+                  () => CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 15,
+                    child: IconButton(
+                      icon: product.like.value
+                          ? const Icon(Icons.favorite_rounded)
+                          : const Icon(Icons.favorite_border),
+                      onPressed: () {
+                        product.like.toggle();
+                      },
+                      iconSize: 18,
+                    ),
+                  ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            '\$${product.price}',
-            style: const TextStyle(
-              fontSize: 20,
+            const SizedBox(height: 8),
+            Text(
+              product.name,
+              maxLines: 2,
+              style: const TextStyle(fontWeight: FontWeight.w400),
+              overflow: TextOverflow.ellipsis,
             ),
-          ),
-        ]),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        product.rating == null ? '0.0' : product.rating.toString(),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                      const Icon(
+                        Icons.star,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateColor.resolveWith((Set<MaterialState> states_) {
+                      if (states_.contains(MaterialState.pressed)) {
+                        return Colors.green;
+                      }
+                      return Colors.blue;
+                    }),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18.0),
+                      ),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: const Text(
+                    'Add to cart',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              '\$${product.price}',
+              style: const TextStyle(
+                fontSize: 20,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
