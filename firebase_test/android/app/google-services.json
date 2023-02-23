@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "651354430881",
+    "project_id": "fir-tese-8f518",
+    "storage_bucket": "fir-tese-8f518.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651354430881:android:d33313f2211c9f71cfbfe0",
+        "android_client_info": {
+          "package_name": "com.example.firebase_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651354430881-53fi0sjbkt70i260bm9hhkr7vcb6rri1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnDSzv-1sc3PccJwcGiN3JmEyTiP3KxGU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651354430881-53fi0sjbkt70i260bm9hhkr7vcb6rri1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "651354430881-j6j4sh5jco8nafa91uf3od2gbul72ico.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebaseTest"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
