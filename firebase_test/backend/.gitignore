@@ -1,2 +1,8 @@
-node_modules
+# WebStorm - IDE
 .idea
+
+# Node.JS files
+node_modules
+
+# Env files
+.env
