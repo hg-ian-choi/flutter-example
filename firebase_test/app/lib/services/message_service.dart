@@ -12,8 +12,7 @@ class MessageService {
       return snapshots.map((QuerySnapshot querySnapshot_) {
         List<MessageModel> messages = <MessageModel>[];
         for (var element_ in querySnapshot_.docs) {
-          messages.add(
-              MessageModel.fromMap(id: element_.id, map: element_.data() as Map<String, dynamic>));
+          messages.add(MessageModel.fromMap(id: element_.id, map: element_.data() as Map<String, dynamic>));
         }
       });
     } catch (error_) {

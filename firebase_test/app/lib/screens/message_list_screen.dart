@@ -20,24 +20,28 @@ class _MessageListScreenState extends State<MessageListScreen> {
       ),
       body: StreamBuilder<List<MessageModel>?>(
         stream: messageService.streamMessages(),
-        builder: (BuildContext context, AsyncSnapshot<List<MessageModel>?> asyncSnapshot) {
-          if (!asyncSnapshot.hasData) {
+        builder: (BuildContext context_, AsyncSnapshot<List<MessageModel>?> asyncSnapshot_) {
+          if (!asyncSnapshot_.hasData) {
+            print('asyncSnapshot.hasData == null');
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (asyncSnapshot.hasError) {
+          } else if (asyncSnapshot_.hasError) {
             return const Center(
               child: Text('Error!'),
             );
           } else {
-            List<MessageModel> messages = asyncSnapshot.data!;
+            List<MessageModel> messages = asyncSnapshot_.data!;
+            print('messages========================>');
+            print(messages);
+            print('messages========================>');
             return Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Expanded(
                   child: ListView.builder(
                     itemCount: messages.length,
-                    itemBuilder: (BuildContext context_, int index_) => ListTile(
+                    itemBuilder: (BuildContext itemBuilderContext_, int index_) => ListTile(
                       title: Text(messages[index_].content),
                     ),
                   ),
