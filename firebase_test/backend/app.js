@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
+
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(process.env.MONGODB_URL);
+  mongoose.set('strictQuery', false);
+  mongoose.connect(process.env.MONGODB_URL);
 }
 
 app.get('/', (req, res) => {
