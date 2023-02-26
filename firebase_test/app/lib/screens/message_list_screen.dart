@@ -22,7 +22,6 @@ class _MessageListScreenState extends State<MessageListScreen> {
         stream: messageService.streamMessages(),
         builder: (BuildContext context_, AsyncSnapshot<List<MessageModel>?> asyncSnapshot_) {
           if (!asyncSnapshot_.hasData) {
-            print('asyncSnapshot.hasData == null');
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -32,9 +31,6 @@ class _MessageListScreenState extends State<MessageListScreen> {
             );
           } else {
             List<MessageModel> messages = asyncSnapshot_.data!;
-            print('messages========================>');
-            print(messages);
-            print('messages========================>');
             return Column(
               mainAxisSize: MainAxisSize.max,
               children: [

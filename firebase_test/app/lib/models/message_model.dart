@@ -3,8 +3,8 @@ class MessageModel {
   final String content;
 
   MessageModel({
-    required this.id,
-    required this.content,
+    this.id = '',
+    this.content = '',
   });
 
   factory MessageModel.fromMap({required String id, required Map<String, dynamic> map}) {
