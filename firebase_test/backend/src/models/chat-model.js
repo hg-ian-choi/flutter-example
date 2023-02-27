@@ -17,6 +17,13 @@ const chatSchema = new Schema({
       required: true,
     },
   ],
+  notRead: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
+  ],
 });
 
 const Chat = mongoose.model('Chat', chatSchema);
