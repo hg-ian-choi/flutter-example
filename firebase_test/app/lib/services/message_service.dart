@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_test/models/chat_model.dart';
 import 'package:firebase_test/models/message_model.dart';
+import 'package:firebase_test/models/response_model.dart';
+import 'package:http/http.dart' as http;
 
 class MessageService {
   Stream<List<MessageModel>?> streamMessages() {
@@ -21,6 +25,23 @@ class MessageService {
     } catch (error_) {
       log('Error ============> ', error: error_.toString(), stackTrace: StackTrace.current);
       return Stream.error(error_.toString());
+    }
+  }
+
+  Future<void> getChatList() async {
+    try {
+      http.Response response = await http.get(Uri.parse('http://localhost:8080/chat'));
+      ResponseModel<List<dynamic>> result = ResponseModel.fromJson(jsonDecode(response.body));
+      print(result.data);
+      List<Chat> chatList = <Chat>[];
+      for (var element in result.data) {
+        print(element);
+        // var chat = Chat.fromJson(jsonDecode(element));
+        // chatList.add(chat);
+      }
+      print(chatList);
+    } catch (error_) {
+      print(error_);
     }
   }
 }

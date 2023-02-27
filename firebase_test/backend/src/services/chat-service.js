@@ -3,7 +3,7 @@ const Chat = require('../models/chat-model');
 const createChat = async () => {
   try {
     const _chat = new Chat({
-      content: '',
+      content: 'hi',
       sequence: 0,
       users: [],
       notRead: [],
@@ -23,7 +23,10 @@ const createChat = async () => {
 
 const getChatList = async () => {
   const _chatList = await Chat.find();
-  return _chatList;
+  return {
+    success: true,
+    data: _chatList,
+  };
 };
 
 module.exports = { createChat, getChatList };

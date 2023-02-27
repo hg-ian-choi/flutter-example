@@ -47,6 +47,11 @@ class _MessageListScreenState extends State<MessageListScreen> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          messageService.getChatList();
+        },
+      ),
     );
   }
 }
