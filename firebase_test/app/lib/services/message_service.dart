@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -8,7 +9,7 @@ import 'package:firebase_test/models/response_model.dart';
 import 'package:http/http.dart' as http;
 
 class MessageService {
-  Stream<List<MessageModel>?> streamMessages() {
+  Stream<List<MessageModel>> streamMessages() {
     try {
       final Stream<QuerySnapshot> snapshots = FirebaseFirestore.instance
           .collection('chatrooms/pzzpJ0YTlB6a3ux95Oyd/messages')
@@ -28,20 +29,22 @@ class MessageService {
     }
   }
 
-  Future<void> getChatList() async {
+  Future<Stream<List<Chat>>> getChatList() async {
+    final StreamController<List<Chat>> streamController = StreamController<List<Chat>>.broadcast();
+    final Stream<List<Chat>> stream = streamController.stream;
+
+    List<Chat> chatList = <Chat>[];
     try {
       http.Response response = await http.get(Uri.parse('http://localhost:8080/chat'));
       ResponseModel<List<dynamic>> result = ResponseModel.fromJson(jsonDecode(response.body));
-      print(result.data);
-      List<Chat> chatList = <Chat>[];
       for (var element in result.data) {
-        print(element);
-        // var chat = Chat.fromJson(jsonDecode(element));
-        // chatList.add(chat);
+        chatList.add(Chat.fromJson(element));
       }
-      print(chatList);
     } catch (error_) {
       print(error_);
     }
+
+    streamController.add(chatList);
+    return stream;
   }
 }
