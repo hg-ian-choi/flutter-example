@@ -15,7 +15,7 @@ class MessageListScreen extends StatefulWidget {
 class _MessageListScreenState extends State<MessageListScreen> {
   MessageService messageService = MessageService();
 
-  final WebSocketChannel channel = IOWebSocketChannel.connect('');
+  final WebSocketChannel channel = IOWebSocketChannel.connect('ws://localhost:8080');
   final TextEditingController controller = TextEditingController();
 
   void sendMessage() {

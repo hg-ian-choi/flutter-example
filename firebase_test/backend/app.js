@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const WebSocket = require('ws');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRouter = require('./src/routers/user-router');
@@ -31,4 +32,15 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
+});
+
+const socket = new WebSocket.Server({
+  port: 8081,
+});
+
+socket.on('connection', (ws_, req_) => {
+  ws_.on('message', (msg_) => {
+    console.log('Message: ' + msg_);
+    ws_.send('World');
+  });
 });
