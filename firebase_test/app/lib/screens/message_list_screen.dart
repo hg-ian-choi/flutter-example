@@ -2,6 +2,8 @@ import 'package:firebase_test/models/chat_model.dart';
 import 'package:firebase_test/models/message_model.dart';
 import 'package:firebase_test/services/message_service.dart';
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 class MessageListScreen extends StatefulWidget {
   const MessageListScreen({Key? key}) : super(key: key);
@@ -13,10 +15,25 @@ class MessageListScreen extends StatefulWidget {
 class _MessageListScreenState extends State<MessageListScreen> {
   MessageService messageService = MessageService();
 
+  final WebSocketChannel channel = IOWebSocketChannel.connect('');
+  final TextEditingController controller = TextEditingController();
+
+  void sendMessage() {
+    if (controller.text.isNotEmpty) {
+      channel.sink.add(controller.text);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     messageService.getChatList();
+  }
+
+  @override
+  void dispose() {
+    channel.sink.close();
+    super.dispose();
   }
 
   @override
