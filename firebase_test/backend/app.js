@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const userRouter = require('./src/routers/user-router');
 const chatRouter = require('./src/routers/chat-router');
+const http = require('http');
+const socket = require('socket.io');
 
 const app = express();
 const port = 8080;
@@ -30,17 +32,29 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`);
+// });
+
+// const socket = new WebSocket.Server({
+//   port: 8081,
+// });
+
+// socket.on('connection', (ws_, req_) => {
+//   ws_.on('message', (msg_) => {
+//     console.log('Message: ' + msg_);
+//     ws_.send('World');
+//   });
+// });
+
+const server = http.createServer(app);
+
+const io = socket(server);
+
+server.listen(8080, function () {
+  console.log(`Socket IO server listening on port: ${port}`);
 });
 
-const socket = new WebSocket.Server({
-  port: 8081,
-});
-
-socket.on('connection', (ws_, req_) => {
-  ws_.on('message', (msg_) => {
-    console.log('Message: ' + msg_);
-    ws_.send('World');
-  });
+io.on('connection', function (socket) {
+  console.log('Socket IO connected');
 });
