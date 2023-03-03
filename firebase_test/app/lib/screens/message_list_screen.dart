@@ -1,9 +1,8 @@
-import 'package:firebase_test/models/chat_model.dart';
 import 'package:firebase_test/models/message_model.dart';
 import 'package:firebase_test/services/message_service.dart';
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:web_socket_channel/status.dart' as status;
 
 class MessageListScreen extends StatefulWidget {
   const MessageListScreen({Key? key}) : super(key: key);
@@ -15,8 +14,9 @@ class MessageListScreen extends StatefulWidget {
 class _MessageListScreenState extends State<MessageListScreen> {
   MessageService messageService = MessageService();
 
-  final WebSocketChannel channel = IOWebSocketChannel.connect('ws://localhost:8080');
   final TextEditingController controller = TextEditingController();
+  late final WebSocketChannel channel;
+
 
   void sendMessage() {
     if (controller.text.isNotEmpty) {
@@ -28,6 +28,16 @@ class _MessageListScreenState extends State<MessageListScreen> {
   void initState() {
     super.initState();
     messageService.getChatList();
+    final Uri wsUrl = Uri.parse('ws://192.168.142.234:8080');
+    channel = WebSocketChannel.connect(wsUrl);
+
+    channel.stream.listen((dynamic message_) {
+      print('message_++++++++++++++++++++++++++++++++++++');
+      print(message_);
+      print('message_------------------------------------');
+      channel.sink.add('received!');
+      channel.sink.close(status.goingAway);
+    });
   }
 
   @override

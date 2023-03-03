@@ -55,21 +55,25 @@ server.listen(8080, function () {
   console.log(`Socket IO server listening on port: ${port}`);
 });
 
-io.on('connection', function (socket) {
-  console.log(socket.id, 'Socket IO connected');
+io.on('connection', function (socket_) {
+  console.log(socket_.id, 'Socket IO connected');
+
+  socket_.on('send_message', (data_) => {
+    socket_.broadcast.emit('receive_message', data_);
+  });
 
   // broadcasting a entering message to everyone who is in the chatroom
   io.emit('msg', `${socket.id} has entered the chatroom.`);
 
   // message receives
-  socket.on('msg', function (data) {
-    console.log(socket.id, ': ', data);
+  socket_.on('msg', function (data) {
+    console.log(socket_.id, ': ', data);
     // broadcasting a message to everyone except for the sender
-    socket.broadcast.emit('msg', `${socket.id}: ${data}`);
+    socket_.broadcast.emit('msg', `${socket_.id}: ${data}`);
   });
 
   // user connection lost
-  socket.on('disconnect', function (data) {
-    io.emit('msg', `${socket.id} has left the chatroom.`);
+  socket_.on('disconnect', function (data_) {
+    io.emit('msg', `${socket_.id} has left the chatroom.`);
   });
 });

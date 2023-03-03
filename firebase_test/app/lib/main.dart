@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_test/firebase_options.dart';
 import 'package:firebase_test/screens/message_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
