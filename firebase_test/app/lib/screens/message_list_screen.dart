@@ -20,7 +20,7 @@ class _MessageListScreenState extends State<MessageListScreen> {
 
   void sendMessage() {
     if (controller.text.isNotEmpty) {
-      channel.sink.add(controller.text);
+      channel.sink.add('Hello, World!');
     }
   }
 
@@ -110,7 +110,8 @@ class _MessageListScreenState extends State<MessageListScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          messageService.getChatList();
+          // messageService.getChatList();
+          sendMessage();
         },
       ),
     );
