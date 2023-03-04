@@ -1,6 +1,7 @@
 import 'package:firebase_test/models/message_model.dart';
 import 'package:firebase_test/services/message_service.dart';
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
@@ -28,8 +29,8 @@ class _MessageListScreenState extends State<MessageListScreen> {
   void initState() {
     super.initState();
     messageService.getChatList();
-    final Uri wsUrl = Uri.parse('ws://192.168.142.234:8080');
-    channel = WebSocketChannel.connect(wsUrl);
+    channel = IOWebSocketChannel.connect('ws://192.168.35.117:8080');
+    // , headers: {'Connection': 'upgrade', 'Upgrade': 'websocket'}
 
     channel.stream.listen((dynamic message_) {
       print('message_++++++++++++++++++++++++++++++++++++');
