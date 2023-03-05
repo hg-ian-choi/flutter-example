@@ -2,8 +2,6 @@ import 'package:firebase_test/models/message_model.dart';
 import 'package:firebase_test/services/message_service.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
-import 'package:web_socket_channel/status.dart' as status;
 
 class MessageListScreen extends StatefulWidget {
   const MessageListScreen({Key? key}) : super(key: key);
@@ -16,8 +14,10 @@ class _MessageListScreenState extends State<MessageListScreen> {
   MessageService messageService = MessageService();
 
   final TextEditingController controller = TextEditingController();
-  late final WebSocketChannel channel;
 
+  // late final WebSocketChannel channel;
+  // final channel = WebSocketChannel.connect(Uri.parse('ws://192.168.35.117:8080'));
+  final IOWebSocketChannel channel = IOWebSocketChannel.connect('ws://192.168.142.234:8080');
 
   void sendMessage() {
     if (controller.text.isNotEmpty) {
@@ -29,16 +29,21 @@ class _MessageListScreenState extends State<MessageListScreen> {
   void initState() {
     super.initState();
     messageService.getChatList();
-    channel = IOWebSocketChannel.connect('ws://192.168.35.117:8080');
+    // channel = IOWebSocketChannel.connect('http://192.168.35.117:8080');
     // , headers: {'Connection': 'upgrade', 'Upgrade': 'websocket'}
 
-    channel.stream.listen((dynamic message_) {
-      print('message_++++++++++++++++++++++++++++++++++++');
-      print(message_);
-      print('message_------------------------------------');
-      channel.sink.add('received!');
-      channel.sink.close(status.goingAway);
-    });
+    // channel.stream.listen((message) {
+    //   channel.sink.add('received!');
+    //   channel.sink.close(status.goingAway);
+    // });
+
+    // channel.stream.listen((dynamic message_) {
+    //   print('message_++++++++++++++++++++++++++++++++++++');
+    //   print(message_);
+    //   print('message_------------------------------------');
+    //   channel.sink.add('received!');
+    //   channel.sink.close(status.goingAway);
+    // });
   }
 
   @override
