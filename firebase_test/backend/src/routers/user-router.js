@@ -2,7 +2,6 @@ const userService = require('../services/user-service');
 const router = require('express').Router();
 
 router.post('/create', async (request_, response_) => {
-  // console.log(request_.body);
   const _result = await userService.createUser();
   response_.send(_result.data);
 });

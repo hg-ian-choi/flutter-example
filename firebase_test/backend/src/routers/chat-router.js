@@ -2,7 +2,6 @@ const chatService = require('../services/chat-service');
 const router = require('express').Router();
 
 router.get('/create', async (request_, response_) => {
-  // console.log(request_.body);
   const _result = await chatService.createChat();
   response_.send(_result.data);
 });

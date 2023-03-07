@@ -2,10 +2,9 @@ const app = require('express')();
 const http = require('http').createServer(app);
 
 app.get('/', (req, res) => {
-  res.send('Node Server is running. Yay!!');
+  res.send('Hello, World!');
 });
 
-//Socket Logic
 const socketio = require('socket.io')(http);
 
 socketio.on('connection', (socket_) => {
