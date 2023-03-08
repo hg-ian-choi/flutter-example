@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_test/controllers/messaging_comtroller.dart';
 import 'package:firebase_test/firebase_options.dart';
 import 'package:firebase_test/screens/message_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +20,6 @@ void main() async {
     provisional: true,
     sound: true,
   );
-
   runApp(const MyApp());
 }
 
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -48,14 +49,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Rxn<RemoteMessage> message = Rxn<RemoteMessage>();
+  final messagingController = Get.put(MessagingController());
 
   @override
   void initState() {
     super.initState();
-    FirebaseMessaging.onMessage.listen((RemoteMessage rm) {
-      message.value = rm;
-    });
+    messagingController.initialized;
   }
 
   @override
