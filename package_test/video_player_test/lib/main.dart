@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key});
-
-  @override
-  State<VideoPlayerScreen> createState() => _VideoPlayerScreenState();
+void main() {
+  runApp(const MyApp());
 }
 
-class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   late VideoPlayerController _controller;
   late Future<void> _initializeVideoPlayerFuture;
 
@@ -19,9 +23,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     // Create and store the VideoPlayerController. The VideoPlayerController
     // offers several different constructors to play videos from assets, files,
     // or the internet.
-    _controller = VideoPlayerController.network(
-      'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-    );
+    _controller = VideoPlayerController.asset('assets/butterfly.mp4');
+    // _controller = VideoPlayerController.network(
+    //   'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+    // );
 
     _initializeVideoPlayerFuture = _controller.initialize();
   }
@@ -30,7 +35,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   void dispose() {
     // Ensure disposing of the VideoPlayerController to free up resources.
     _controller.dispose();
-
     super.dispose();
   }
 
